@@ -17,6 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.browser.customtabs.CustomTabsIntent
 import java.net.URLEncoder
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 class MainActivity : ComponentActivity() {
 
@@ -34,25 +42,40 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Text(
-                        text = "Oura Partner Mirror",
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-
-                    Button(
-                        onClick = {
-                            startOuraLogin()
-                        },
-                        modifier = Modifier.padding(top = 24.dp)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                start = 20.dp,
+                                end = 8.dp,
+                                top = 12.dp,
+                                bottom = 12.dp
+                            ),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Mit Oura verbinden")
+                        Text(
+                            text = "Oura Partner Mirror",
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        IconButton(
+                            onClick = {
+                                // Menü kommt später
+                            }
+                        ) {
+                            Text(
+                                text = "⋮",
+                                style = MaterialTheme.typography.headlineMedium
+                            )
+                        }
                     }
+
+                    HorizontalDivider()
+
+                    // Dein bisheriger Content kommt hier hin
                 }
             }
         }
