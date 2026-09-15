@@ -25,6 +25,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -40,6 +42,9 @@ class MainActivity : ComponentActivity() {
         handleOAuthCallback(intent)
 
         setContent {
+            val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+            val scope = rememberCoroutineScope()
+
             MaterialTheme {
                 Column(
                     modifier = Modifier.fillMaxSize()
@@ -63,7 +68,10 @@ class MainActivity : ComponentActivity() {
 
                         IconButton(
                             onClick = {
-                                // Menü kommt später
+                                scope.launch {
+                                    drawerState.apply { open() };
+                                }
+
                             }
                         ) {
                             Text(
@@ -75,7 +83,22 @@ class MainActivity : ComponentActivity() {
 
                     HorizontalDivider()
 
-                    // Dein bisheriger Content kommt hier hin
+                    ModalNavigationDrawer(
+                        drawerContent = {
+                            ModalDrawerSheet {
+                                Text("Drawer title", modifier = Modifier.padding(16.dp))
+                                HorizontalDivider()
+                                NavigationDrawerItem(
+                                    label = { Text(text = "Drawer Item") },
+                                    selected = false,
+                                    onClick = { /*TODO*/ }
+                                )
+                                // ...other drawer items
+                            }
+                        }
+                    ) {
+                        // Screen content
+                    }
                 }
             }
         }
