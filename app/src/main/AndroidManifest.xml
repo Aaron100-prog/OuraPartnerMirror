@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="OuraPartnerMirror"
+                    android:scheme="ourapartnermirror"
                     android:host="oauth" />
             </intent-filter>
 
